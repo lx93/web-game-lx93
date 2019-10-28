@@ -17,47 +17,76 @@
   --%>
 <!-- [END_EXCLUDE] -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.appengine.java8.HelloAppEngine" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <html>
 <head>
   <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
-  <title>Book Sample: Objects and Lists</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>MASTERMIND🍑🍑🍑<</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 </head>
 <body>
-    
+  <h1>Welcome to MasterMind 🍑🍑🍑</h1>
 
- 
-  
-  <form method="GET" action="/doit">
 
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" name="title" id="title" value="" class="form-control" />
-    </div>
-    
-    <div class="form-group">
-      <label for="author">Author</label>
-      <input type="text" name="author" id="author" value="" class="form-control" />
-    </div>
+  <form method="GET" action="/index">
+  <button class="btn btn-success" name="button" value="newgame">New Game</button>
+
+  <c:if test="${!correct}">
 
     <div class="form-group">
-      <label for="genre">Genre</label>
-      <input type="radio" name="genre" id="genre" value="fiction" checked class="form-control" /> Fiction
-      <input type="radio" name="genre" id="genre" value="non-fiction" class="form-control" /> Non-fiction
+      <label for="title">Welcome to MasterMind! Enter your guess</label>
+      <input type="text" name="guess" id="guess" class="form-control" maxlength="${CODESIZE}" />
     </div>
 
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success" name="button" id="submit" value="submit" disabled="disabled">Submit</button>
+    <script>
+    (function() {
+        $('input').keyup(function() {
+            var empty = false;
+            $('input').each(function() {
+                if ($(this).val().length<"${CODESIZE}") {empty = true;}
+            });
+
+            if (empty) {$('#submit').attr('disabled', 'disabled'); }
+            else {$('#submit').removeAttr('disabled');}
+        });
+    })()
+    </script>
   </form>
-   <h2>Some other servlets</h2>
-  <table>
-    <tr>
-      <td colspan="2" style="font-weight:bold;">Available Servlets:</td>
-    </tr>
-    <tr>
-      <td><a href='/hello'>Hello App Engine</a></td>
-      <td><a href='/goodbye'>Goodbye App Engine</a></td>
-    </tr>
-  </table>
+  </c:if>
+
+      <c:choose>
+       <c:when test="${empty guess}">
+         <p>Guess a color combo (e.g. YBRG)</p>
+       </c:when>
+      <c:otherwise>
+        <c:if test="${!correct}">
+           <p>${randomPhrase} is the correct answer.</p>
+           <p>${guess} is user guess.</p>
+           <p>${exacts} exacts correct</p>
+           <p>${partials} partials correct</p>
+
+
+            <table>
+            <tr><th>guessed</th><th>result</th></tr>
+              <c:forEach items="${previousGuesses}" var="guess">
+                <tr><td>${guess.key}</td><td>${guess.value}</td></tr>
+               </c:forEach>
+            </table>
+
+        </c:if>
+        <c:if test="${correct}">
+            <p>you won!</p>
+        </c:if>
+        </c:otherwise>
+      </c:choose>
+
 
 </body>
 </html>

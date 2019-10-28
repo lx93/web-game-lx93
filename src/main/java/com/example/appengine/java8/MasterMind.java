@@ -6,11 +6,11 @@ import static java.lang.System.out;
 
 public class MasterMind implements java.io.Serializable
 {
-    private final int CODESIZE = 4;
-    private final ArrayList<Character> COLORS = new ArrayList<>(Arrays.asList('r','g','b','y','o','p'));
+    protected final int CODESIZE = 4;
+    protected final ArrayList<Character> COLORS = new ArrayList<>(Arrays.asList('r','g','b','y','o','p'));
     protected StringBuilder randomPhrase;
     protected StringBuilder hiddenPhrase;
-    protected HashSet<String> previousGuesses = new HashSet<>();
+    protected HashMap<String,String> previousGuesses;
     protected int exacts = 0;
     protected int partials = 0;
     protected int lives = 6;
@@ -21,6 +21,8 @@ public class MasterMind implements java.io.Serializable
     {
         randomPhrase = generateRandomPhrase();
         hiddenPhrase = generateHiddenPhrase();
+        previousGuesses = new HashMap<String,String>();
+
     }
 
     /**
@@ -72,10 +74,14 @@ public class MasterMind implements java.io.Serializable
     {
         partials = 0;
         exacts = 0;
+
         if (lives >0)
         {
+            guess = guess.toLowerCase();
             System.out.print(instance.getPlayer()+" guessed: "+guess+", ");
             correct = processGuess(guess);
+            String result = partials + "parials" + exacts + "exacts";
+            previousGuesses.put(guess,result);
 
             if (!correct)
             {
@@ -92,7 +98,6 @@ public class MasterMind implements java.io.Serializable
 
         else{System.out.println("Oops, you lost!");}
 
-        previousGuesses = new HashSet<>();
 
         return instance;
     }

@@ -26,25 +26,12 @@
   <title>Do It</title>
 </head>
 <body>
-    <h1>Some references to strings and book properties</h1>
+    <h1>Welcome to MasterMind 🍑🍑🍑</h1>
 
-     <p>${fn:escapeXml(title)} is good</p>
-     <p>${author} is great</p>
-     <p>${book.title} and ${book.author} and ${book.genre}</p>
+     <p>${hiddenPhrase} is hiddenPhrase</p>
+     <p>${randomPhrase} is randomPhrase</p>
+     <p>${guess} is user guess</p>
 
-    <c:choose>
-  	<c:when test="${empty bookList}">
-       <p>No books</p>
-     </c:when>
-    <c:otherwise>
-      <h1>The entire book list</h1>
-          <ol>
-              <c:forEach items="${bookList}" var="aBook">
-                    <li>${aBook.title} -- ${aBook.author} -- ${aBook.genre}</li>
-               </c:forEach>
-           </ol>
-      </c:otherwise>
-  	  </c:choose>
 
 </body>
 </html>

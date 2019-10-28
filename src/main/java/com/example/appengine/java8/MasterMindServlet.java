@@ -43,7 +43,8 @@ public class MasterMindServlet extends HttpServlet {
         request.setAttribute("exacts", masterMind.exacts);
         request.setAttribute("correct", masterMind.correct);
         request.setAttribute("lives", masterMind.lives);
-        request.setAttribute("masterMind",masterMind);
+        request.setAttribute("previousGuesses", masterMind.previousGuesses);
+        System.out.println(masterMind.randomPhrase);
 
         request.getSession().setAttribute("masterMind",masterMind);
         request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -57,31 +58,30 @@ public class MasterMindServlet extends HttpServlet {
       HttpSession session = request.getSession();
       String button = request.getParameter("button");
 
-      if (button.equals("newgame")){
+      if (button.equals("newgame"))
+      {
           masterMind = new MasterMind();
           session.setAttribute("masterMind",masterMind);
-          request.getSession().setAttribute("masterMind",masterMind);
+          request.setAttribute("CODESIZE", masterMind.CODESIZE);
+
           request.getRequestDispatcher("/index.jsp").forward(request, response);
       }
       else
       {
           if (session.getAttribute("masterMind") != null)
           {
-              System.out.println("load session MasterMind");
               masterMind = (MasterMind)session.getAttribute("masterMind");
+              request.setAttribute("CODESIZE", masterMind.CODESIZE);
               playMasterMind(request,response);
           }
-          else if (masterMind.lives<=0 || masterMind.correct){
-              masterMind = new MasterMind();
-          }
-
           else
           {
-              System.out.println("new MasterMind");
               masterMind = new MasterMind();
+              request.setAttribute("CODESIZE", masterMind.CODESIZE);
               playMasterMind(request,response);
-
           }
+
+          if (masterMind.lives<=0 || masterMind.correct){ masterMind = new MasterMind(); }
       }
 
 

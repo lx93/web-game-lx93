@@ -2,23 +2,23 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"><!-- JSPC servlet mappings start -->
 
     <servlet>
-        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>org.apache.jsp.doit_jsp</servlet-name>
         <servlet-class>org.apache.jsp.doit_jsp</servlet-class>
     </servlet>
 
-    <servlet-mapping>
+    <servlet>
         <servlet-name>org.apache.jsp.index_jsp</servlet-name>
-        <url-pattern>/index.jsp</url-pattern>
-    </servlet-mapping>
+        <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>org.apache.jsp.doit_jsp</servlet-name>
         <url-pattern>/doit.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
 
 <!-- JSPC servlet mappings end -->

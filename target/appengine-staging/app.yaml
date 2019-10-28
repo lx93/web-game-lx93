@@ -23,15 +23,7 @@ handlers:
   script: unused
   login: optional
   secure: optional
-- url: /hello
-  script: unused
-  login: optional
-  secure: optional
-- url: /doit
-  script: unused
-  login: optional
-  secure: optional
-- url: /goodbye
+- url: /index
   script: unused
   login: optional
   secure: optional
